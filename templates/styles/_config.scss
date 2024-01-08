@@ -1,0 +1,119 @@
+@use "sass:math";
+@use "sass:color";
+
+$images-path: "../images/";
+
+$fonts-path: "../fonts/";
+
+$font-weight-extra-light: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+$font-weight-heavy: 800;
+$font-weight-black: 900;
+
+$font-weights: (
+  extralight: $font-weight-extra-light,
+  light: $font-weight-light,
+  regular: $font-weight-regular,
+  medium: $font-weight-medium,
+  semibold: $font-weight-semi-bold,
+  bold: $font-weight-bold,
+);
+
+@function font-weight($weight) {
+  @return map-get($font-weights, $weight);
+}
+
+$font-name: fruitcake-text-font;
+$stylized-font-name: fruitcake-stylized-font;
+
+$font-definitions: (
+  (
+    "file": "inter/Inter-ExtraLight.ttf",
+    "format": "truetype",
+    "weight": $font-weight-extra-light,
+    "style": normal
+  ),
+  (
+    "file": "inter/Inter-Light.ttf",
+    "format": "truetype",
+    "weight": $font-weight-light,
+    "style": normal
+  ),
+  (
+    "file": "inter/Inter-Regular.ttf",
+    "format": "truetype",
+    "weight": $font-weight-regular,
+    "style": normal
+  ),
+  (
+    "file": "inter/Inter-Medium.ttf",
+    "format": "truetype",
+    "weight": $font-weight-medium,
+    "style": normal
+  ),
+  (
+    "file": "inter/Inter-SemiBold.ttf",
+    "format": "truetype",
+    "weight": $font-weight-semi-bold,
+    "style": normal
+  ),
+  (
+    "file": "inter/Inter-Bold.ttf",
+    "format": "truetype",
+    "weight": $font-weight-bold,
+    "style": normal
+  ),
+);
+
+$font-family: $font-name, sans-serif;
+$stylized-font-family: $stylized-font-name, serif;
+
+$font-size-px: 19;
+
+@function rems($size, $compare-to: $font-size-px) {
+  @return math.div($size * 1rem, $compare-to);
+}
+
+$font-size-small: rems(16);
+$font-size-normal: 1rem;
+$font-size-large: rems(25);
+$font-size-extralarge: rems(34);
+
+$text-color: #000000;
+$highlight-color: #A05329;
+$mouse-cursor-color: #935F20;
+
+$background-color: #FFFFFF;
+$background-light-color: #EBEEED;
+$background-extralight-color: #F2F1ED;
+
+$divider-color: #ADAA9E;
+$divider-light-color: #CCCCCC;
+
+$box-shadow-default: 4px 4px 20px #0000001A;
+
+$brand-height: rems(38);
+
+$section-margin-block: rems(100);
+
+$header-height: 5rem;
+$heading-offset-top: 8rem;
+
+@mixin text-font($weight: regular) {
+  font-family: $font-family;
+  font-weight: font-weight($weight);
+}
+
+@mixin stylized-heavy-font {
+  font-family: $stylized-font-family;
+  font-weight: $font-weight-heavy;
+}
+
+@mixin stylized-black-font {
+  font-family: $stylized-font-family;
+  font-weight: $font-weight-black;
+}

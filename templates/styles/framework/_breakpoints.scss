@@ -1,0 +1,76 @@
+@use "sass:map";
+
+$devices: (
+  phone-portrait,
+  phone-landscape,
+  tablet-portrait,
+  tablet-landscape,
+  desktop-small,
+  desktop-medium,
+  desktop-large,
+);
+
+$breakpoints: (
+  phone-landscape,
+  tablet-portrait,
+  tablet-landscape,
+  desktop-small,
+  desktop-medium,
+  desktop-large,
+);
+
+$devices-min-widths: (
+  phone-landscape: 520px,
+  tablet-portrait: 768px,
+  tablet-landscape: 992px,
+  desktop-small: 1200px,
+  desktop-medium: 1400px,
+  desktop-large: 1700px,
+);
+
+@function min-width($breakpoint) {
+  @return map.get($devices-min-widths, $breakpoint);
+}
+
+$devices-max-widths: (
+  phone-portrait: map.get($devices-min-widths, phone-landscape) - .02px,
+  phone-landscape: map.get($devices-min-widths, tablet-portrait) - .02px,
+  tablet-portrait: map.get($devices-min-widths, tablet-landscape) - .02px,
+  tablet-landscape: map.get($devices-min-widths, desktop-small) - .02px,
+  desktop-small: map.get($devices-min-widths, desktop-medium) - .02px,
+  desktop-medium: map.get($devices-min-widths, desktop-large) - .02px,
+);
+
+@function max-width($breakpoint) {
+  @return map.get($devices-max-widths, $breakpoint);
+}
+
+@mixin gt($breakpoint) {
+  @media (min-width: (max-width($breakpoint) + .02px)) {
+    @content;
+  }
+}
+
+@mixin ge($breakpoint) {
+  @media (min-width: min-width($breakpoint)) {
+    @content;
+  }
+}
+
+@mixin eq($breakpoint) {
+  @media (min-width: min-width($breakpoint)) and (max-width: max-width($breakpoint)) {
+    @content;
+  }
+}
+
+@mixin le($breakpoint) {
+  @media (max-width: max-width($breakpoint)) {
+    @content;
+  }
+}
+
+@mixin lt($breakpoint) {
+  @media (max-width: (min-width($breakpoint) - .02px)) {
+    @content;
+  }
+}

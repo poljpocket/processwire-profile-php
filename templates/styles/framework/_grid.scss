@@ -1,0 +1,79 @@
+@use "sass:math";
+
+@use "breakpoints";
+
+$column-sizes: (
+  "full": 1,
+  "three-quarters": math.div(4, 3),
+  "two-thirds": math.div(3, 2),
+  "half": 2,
+  "third": 3,
+  "quarter": 4,
+);
+
+@function column-size($amountPerRow) {
+  @return math.div(100%, $amountPerRow);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 calc(var(--gutter) * -1 / 2);
+  --gutter: 2rem;
+
+  &.center {
+    justify-content: center;
+  }
+
+  > * {
+    flex: 0 0 auto;
+    max-width: 100%;
+    padding: 0 calc(var(--gutter) / 2);
+  }
+
+  @each $size, $amountPerRow in $column-sizes {
+    .#{$size} {
+      width: column-size($amountPerRow);
+    }
+  }
+
+  @each $breakpoint in breakpoints.$breakpoints {
+    @each $size, $amountPerRow in $column-sizes {
+      @include breakpoints.ge($breakpoint) {
+        .#{$size}-#{$breakpoint} {
+          width: column-size($amountPerRow);
+        }
+      }
+    }
+  }
+
+  .auto {
+    flex: 1 0 0;
+  }
+
+  @each $breakpoint in breakpoints.$breakpoints {
+    @include breakpoints.ge($breakpoint) {
+      .auto-#{$breakpoint} {
+        flex: 1 0 0;
+      }
+    }
+  }
+
+  .offset-small {
+    margin-inline-start: column-size(12);
+  }
+
+  @each $breakpoint in breakpoints.$breakpoints {
+    @include breakpoints.ge($breakpoint) {
+      .offset-small-#{$breakpoint} {
+        margin-inline-start: column-size(12);
+      }
+    }
+  }
+
+  @each $breakpoint in breakpoints.$breakpoints {
+    .offset-none-#{$breakpoint} {
+      margin-inline-start: 0;
+    }
+  }
+}

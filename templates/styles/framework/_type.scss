@@ -1,0 +1,24 @@
+@use "sass:math";
+@use "sass:map";
+
+@use "../config";
+@use "breakpoints";
+
+@mixin _define-font-face($name, $weight, $style, $file, $format) {
+  @font-face {
+    font-family: $name;
+    font-style: $style;
+    font-weight: $weight;
+    src: url(config.$fonts-path + $file) format($format);
+  }
+}
+
+@mixin _define-font($name, $font) {
+  @include _define-font-face($name, map.get($font, "weight"), map.get($font, "style"), map.get($font, "file"), map.get($font, "format"));
+}
+
+@mixin define-fonts($name, $font-definitions) {
+  @each $font in $font-definitions {
+    @include _define-font($name, $font);
+  }
+}

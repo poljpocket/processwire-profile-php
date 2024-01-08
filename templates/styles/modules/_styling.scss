@@ -1,0 +1,202 @@
+@use "sass:math";
+
+@use "../config";
+@use "../framework/breakpoints";
+@use "../framework/type";
+
+@include type.define-fonts(config.$font-name, config.$font-definitions);
+
+@font-face {
+  font-family: config.$stylized-font-name;
+  font-weight: config.$font-weight-heavy;
+  src: url(config.$fonts-path + "itc-clearface/webFonts/ITCClearfaceProHeavy/font.woff2") format("woff2"),
+  url(config.$fonts-path + "itc-clearface/webFonts/ITCClearfaceProHeavy/font.woff") format("woff");
+}
+
+@font-face {
+  font-family: config.$stylized-font-name;
+  font-weight: config.$font-weight-black;
+  src: url(config.$fonts-path + "itc-clearface/webFonts/ITCClearfaceProBlack/font.woff2") format("woff2"),
+  url(config.$fonts-path + "itc-clearface/webFonts/ITCClearfaceProBlack/font.woff") format("woff");
+}
+
+html {
+  font-size: 13px;
+
+  @include breakpoints.ge(desktop-medium) {
+    font-size: 16px;
+  }
+
+  @include breakpoints.ge(desktop-large) {
+    font-size: 19px;
+  }
+
+  scroll-behavior: smooth;
+}
+
+body {
+  color: config.$text-color;
+  @include config.text-font(regular);
+  line-height: math.div(25, config.$font-size-px);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+p {
+  margin-block-end: 1rem;
+  line-height: 1.4;
+}
+
+b, strong {
+  font-weight: config.font-weight(semibold);
+}
+
+a:not(.button) {
+  color: inherit;
+  text-decoration: inherit;
+
+  &:hover,
+  &:focus,
+  &.active {
+    color: config.$highlight-color;
+    text-decoration: inherit;
+  }
+}
+
+@each $h in (1, 2, 3, 4, 5) {
+  h#{$h}, .h#{$h} {
+    font-weight: config.font-weight(extralight);
+    margin-block-start: 0;
+    margin-block-end: 1rem;
+
+    > p {
+      margin-block-end: 0;
+    }
+  }
+}
+
+@each $h in (1, 2, 3) {
+  h#{$h}, .h#{$h} {
+    @include config.text-font(extralight);
+    line-height: 1.2;
+    text-transform: uppercase;
+
+    b, strong {
+      @include config.stylized-black-font;
+      line-height: 1;
+      text-transform: none;
+    }
+  }
+}
+
+h1, .h1 {
+  font-size: config.rems(83);
+
+  strong, b {
+    font-size: config.rems(100);
+  }
+}
+
+h2, .h2 {
+  font-size: config.rems(55);
+
+  b, strong {
+    font-size: config.rems(69);
+  }
+}
+
+h3, .h3 {
+  font-size: config.rems(40);
+
+  b, strong {
+    font-size: config.rems(50);
+  }
+}
+
+h4, .h4 {
+  @include config.text-font(semibold);
+  font-size: config.rems(21);
+}
+
+h5, .h5 {
+  font-weight: config.font-weight(semibold);
+  font-size: config.rems(18);
+  text-transform: uppercase;
+}
+
+iframe {
+  display: block;
+  width: 100%;
+  border: none;
+}
+
+.button {
+  display: inline-block;
+  color: inherit;
+  line-height: 1;
+  padding: 1rem 1.5rem;
+  border-radius: 2rem;
+  text-decoration: inherit;
+  text-transform: uppercase;
+
+  &:hover {
+    color: inherit;
+  }
+
+  &.button-icon {
+    padding: 1rem 2rem 1rem 4rem;
+    background-color: config.$background-color;
+    position: relative;
+    border: 1px solid config.$text-color;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      height: calc(100% - 6px);
+      aspect-ratio: 1;
+      background-image: url(config.$images-path + 'icons/button-icon.svg');
+      background-repeat: no-repeat;
+      background-size: 100%;
+      transition: left .1s ease;
+    }
+
+    &:hover {
+      &::before {
+        left: calc(2px + .5rem);
+      }
+    }
+  }
+
+  &.button-small {
+    padding: .75rem 1.25rem;
+    font-size: config.$font-size-small;
+
+    &.button-icon {
+      padding-inline: 4rem 2rem;
+    }
+  }
+
+  &.button-outline {
+    border: 1px solid config.$text-color;
+    background-color: transparent;
+  }
+
+  &.button-highlight {
+    border: 1px solid config.$background-extralight-color;
+    background-color: config.$background-extralight-color;
+  }
+}
+
+a[id]:not([href]) {
+  scroll-margin-block-start: config.$header-height;
+}
+
+hr {
+  margin-block: 3rem;
+  border: none;
+  border-block-start: 2px solid config.$divider-color;
+}

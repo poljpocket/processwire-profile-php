@@ -1,0 +1,9 @@
+@use "banner";
+
+@use "../../../node_modules/modern-css-reset/dist/reset.css";
+@use "../../../node_modules/tiny-slider/src/tiny-slider";
+
+@use "framework/layout";
+@use "framework/breakpoints";
+
+@use "modules";
