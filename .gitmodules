@@ -7,3 +7,6 @@
 [submodule "modules/RockMigrations"]
 	path = modules/RockMigrations
 	url = git@github.com:baumrock/RockMigrations.git
+[submodule "modules/SeoMaestro"]
+	path = modules/SeoMaestro
+	url = git@github.com:wanze/SeoMaestro.git
