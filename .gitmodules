@@ -1,9 +1,9 @@
 [submodule "site/modules/processwire-migrations"]
-	path = site/modules/processwire-migrations
+	path = modules/processwire-migrations
 	url = https://github.com/poljpocket/processwire-migrations.git
 [submodule "site/modules/TracyDebugger"]
-	path = site/modules/TracyDebugger
+	path = modules/TracyDebugger
 	url = https://github.com/adrianbj/TracyDebugger.git
 [submodule "site/modules/FileValidatorSvgSanitizer"]
-	path = site/modules/FileValidatorSvgSanitizer
+	path = modules/FileValidatorSvgSanitizer
 	url = https://github.com/ryancramerdesign/FileValidatorSvgSanitizer.git
