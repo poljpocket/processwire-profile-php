@@ -19,13 +19,6 @@
     <meta charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<?= $config->urls->templates . 'images/favicon-fruitcake-2023.svg' ?>">
-    <?php if ($modules->isInstalled('LanguageSupportPageNames')):
-        foreach ($languages ?? [] as $language) {
-            echo "<link rel=\"alternate\" href=\"{$page->localHttpUrl($language)}\" hreflang=\"$language->subtitle\">";
-        }
-    else: ?>
-        <link rel="alternate" href="<?= $page->httpUrl ?>" hreflang="de">
-    <?php endif; ?>
     <?php foreach ($config->styles as $file) {
         echo "<link type=\"text/css\" href=\"$file\" rel=\"stylesheet\">";
     } ?>
@@ -33,6 +26,13 @@
         echo $page->seo->render();
     else: ?>
         <title><?php echo $page->title; ?> &ndash; <?= __('Fruitcake') ?></title>
+        <?php if ($modules->isInstalled('LanguageSupportPageNames')):
+            foreach ($languages ?? [] as $language) {
+                echo "<link rel=\"alternate\" href=\"{$page->localHttpUrl($language)}\" hreflang=\"$language->subtitle\">";
+            }
+        else: ?>
+            <link rel="alternate" href="<?= $page->httpUrl ?>" hreflang="de">
+        <?php endif; ?>
     <?php endif; ?>
 </head>
 <body>
